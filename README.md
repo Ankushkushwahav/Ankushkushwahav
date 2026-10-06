@@ -277,6 +277,36 @@ DSA / Problem Solving████████████░░░░░░░�
    Then run the workflow once from the Actions tab.
 5. Adjust the skill-level bars to honest values.
 =========================================================================
+-->ation: create .github/workflows/snake.yml with:
+
+   name: Generate Snake
+   on:
+     schedule:
+       - cron: "0 0 * * *"
+     workflow_dispatch:
+     push:
+       branches: [main]
+   permissions:
+     contents: write
+   jobs:
+     generate:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: Platane/snk/svg-only@v3
+           with:
+             github_user_name: ${{ github.repository_owner }}
+             outputs: |
+               dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+         - uses: crazy-max/ghaction-github-pages@v3.1.0
+           with:
+             target_branch: output
+             build_dir: dist
+           env:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+   Then run the workflow once from the Actions tab.
+5. Adjust the skill-level bars to honest values.
+=========================================================================
 -->
 <!-- ================= 3D CYBER-SPACE HERO HEADER ================= -->
 <div align="center">
